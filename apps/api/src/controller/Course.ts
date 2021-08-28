@@ -1,0 +1,133 @@
+import { RequestHandler, Request, Response } from 'express';
+import Course from '../model/Course';
+import { Lessons, Text, Video } from '../model/Lessons';
+
+export const getCourses: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const courses = await Course.find().populate(['creator', 'category']);
+    return res.status(200).json({ courses });
+  } catch (error) {
+    return res.status(400).json({
+      msg: 'Something went wrong',
+    });
+  }
+};
+export const getCourseById: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const id = req.params;
+
+    const course = await Course.findOne({ id: id });
+    const result = await course.populate(['category', 'creator', 'lessons']);
+    return res.status(200).json({
+      course: result,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      msg: 'Faild to find course',
+    });
+  }
+};
+
+export const startCourse: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { course_type, course_level, creator, category } = req.body;
+    const image_url = '/media/' + req.file?.filename;
+
+    const course = new Course({
+      course_type,
+      course_level,
+      creator,
+      category,
+      image_url,
+    });
+    await course.save();
+    const result = await course.populate(['category', 'creator']);
+    return res.status(200).json({
+      course: result,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      msg: 'Failed to start course',
+    });
+  }
+};
+
+export const addVideoLesson: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { name, lesson_type, lesson_number, text, title, course_id } =
+      req.body;
+    const video_url = '/media/' + req.file?.filename;
+
+    const course = await Course.findOne({ _id: course_id });
+    const video = new Video({
+      video_url: video_url,
+      text,
+      title,
+    });
+    await video.save();
+
+    const lesson = await new Lessons({
+      name,
+      lesson_number,
+      lesson_type,
+      video: video.id,
+    });
+    await lesson.save();
+
+    course.lessons.push(lesson.id);
+    await course.save();
+
+    const result = await course.populate(['creator', 'lessons', 'category']);
+    return res.status(200).json({
+      course: result,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      msg: 'Failed to add video',
+    });
+  }
+};
+
+export const addTextLesson: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { course_id, content, title, name, lesson_type, lesson_number } =
+      req.body;
+
+    const course = await Course.findOne({ id: course_id });
+    const text = new Text({
+      content,
+      title,
+    });
+    await text.save();
+
+    const lesson = new Lessons({
+      name,
+      lesson_type,
+      lesson_number,
+      text: text.id,
+    });
+    await lesson.save();
+
+    course.lessons.push(lesson.id);
+    await course.save();
+  } catch (error) {
+    return res.status(400).json({
+      msg: 'Failed to add text',
+    });
+  }
+};

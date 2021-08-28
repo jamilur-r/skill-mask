@@ -1,4 +1,5 @@
-import { Document, Schema } from "mongoose";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Document, Schema } from 'mongoose';
 
 // USER
 export interface UserType extends Document {
@@ -6,7 +7,7 @@ export interface UserType extends Document {
   first_name: string;
   last_name: string;
   email: string;
-  role: "ADMIN" | "USER" | "CREATOR" | "SUADMIN";
+  role: 'ADMIN' | 'USER' | 'CREATOR' | 'SUADMIN';
   phone: string;
   email_confirmed: boolean;
   password: string;
@@ -24,8 +25,9 @@ export interface PasswordRequestType extends Document {
 export interface VideosType extends Document {
   id: string;
   video_url: string;
-  text: string;
+  text?: string;
   title: string;
+  // lesson_id: Schema.Types.ObjectId
 }
 
 export interface QuestionsType extends Document {
@@ -38,7 +40,8 @@ export interface QuestionsType extends Document {
 export interface QuizzesType extends Document {
   id: string;
   title: string;
-  questions: QuestionsType[];
+  questions: any;
+  // lesson_id: Schema.Types.ObjectId
 }
 
 export interface TasksType extends Document {
@@ -46,22 +49,23 @@ export interface TasksType extends Document {
   title: string;
   task_url: string;
   text: string;
+  // lesson_id: Schema.Types.ObjectId
 }
 
 export interface TextsType extends Document {
   id: string;
   title: string;
   content: string;
+  // lesson_id: Schema.Types.ObjectId
 }
 
 export interface LessonsType extends Document {
   id: string;
   name: string;
-  type: "VIDEO" | "QUIZ" | "TASK" | "TEXT";
-  video?: VideosType;
-  quiz?: QuizzesType;
-  task?: TasksType;
-  text?: TextsType;
+  lesson_type: 'VIDEO' | 'QUIZ' | 'TEXT';
+  video?: Schema.Types.ObjectId;
+  quiz?: Schema.Types.ObjectId;
+  text?: Schema.Types.ObjectId;
   lesson_number: number;
 }
 
@@ -74,11 +78,13 @@ export interface CategoriesType extends Document {
 
 export interface CoursesType extends Document {
   id: string;
-  type: "COURSE" | "PATH" | "EXAM";
-  lessons: LessonsType[];
+  image_url: string;
+  course_type: 'COURSE' | 'PATH' | 'EXAM';
+  lessons?: any;
   enrollment_count: number;
-  creator: string;
-  category: string[];
+  creator: Schema.Types.ObjectId;
+  category: Schema.Types.ObjectId;
+  course_level: 'BEGINEER' | 'INTERMEDIATE' | 'PROFESSIONAL';
 }
 
 export interface ProgressType extends Document {

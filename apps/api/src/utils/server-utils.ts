@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { verify } from "jsonwebtoken";
 import * as multer from "multer";
@@ -77,7 +78,7 @@ export const CheckAdmin: RequestHandler = (
 // FILE UPLOAD
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "..", "media"));
+    cb(null, path.join(__dirname, "media"));
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
