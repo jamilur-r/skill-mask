@@ -12,7 +12,7 @@ const db_url: string = process.env.db_url || environment.db_url;
 const port: string = process.env.port || environment.port;
 
 const app: Application = express();
-app.use(morgan('dev'));
+app.use(morgan("tiny"));
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));

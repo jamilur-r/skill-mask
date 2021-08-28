@@ -3,6 +3,7 @@ import ConfirmEmail from '../pages/Auth/ConfirmEmail';
 import UserDashboard from '../pages/Auth/UserDashboard';
 import UserSignIn from '../pages/Auth/UserSignIn';
 import UserSignUp from '../pages/Auth/UserSignUp';
+import CateloguePage from '../pages/CateloguePage';
 import Home from '../pages/Home';
 
 export interface RouteDataType {
@@ -35,5 +36,10 @@ export const RouteData: RouteDataType[] = [
     path: '/confirm-email',
     protected: false,
     comp: ConfirmEmail,
+  },
+  {
+    path: '/catalogue/:name',
+    protected: false,
+    comp: CateloguePage,
   },
 ];

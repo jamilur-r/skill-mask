@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import { Colors } from "@skill-mask/app";
-
+import styled from 'styled-components';
+import { Colors } from '@skill-mask/app';
 
 export const Nav = styled.nav`
   width: 100%;
@@ -32,9 +31,8 @@ export const Brand = styled.p`
   }
 `;
 
-
 interface RoutesProps {
-    show: boolean
+  show: boolean;
 }
 export const Routes = styled.div<RoutesProps>`
   height: 100%;
@@ -47,6 +45,13 @@ export const Routes = styled.div<RoutesProps>`
     color: ${Colors.green};
     font-size: 14px;
     font-weight: 500;
+  }
+  div {
+    margin: 0 20px;
+    color: ${Colors.green};
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
   }
   .auth-link {
     display: none;
@@ -74,11 +79,15 @@ export const Routes = styled.div<RoutesProps>`
     height: 90vh;
     background-color: ${Colors.black};
 
-    display: ${(props) => (props.show ? "flex" : "none")};
+    display: ${(props) => (props.show ? 'flex' : 'none')};
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     a {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    div {
       font-size: 25px;
       font-weight: bold;
     }
@@ -137,7 +146,7 @@ export const ToggleButton = styled.button`
 `;
 
 interface UserDropProps {
-    show: boolean;
+  show: boolean;
 }
 export const UserDrop = styled.div<UserDropProps>`
   width: 220px;
@@ -145,7 +154,7 @@ export const UserDrop = styled.div<UserDropProps>`
   padding: 25px 0;
   background-color: ${Colors.black};
   border-radius: 3px;
-  display: ${(props) => (props.show ? "flex" : "none")};
+  display: ${(props) => (props.show ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -188,6 +197,56 @@ export const UserDrop = styled.div<UserDropProps>`
     justify-content: center;
     span {
       margin-left: 10px;
+    }
+  }
+`;
+
+interface CatalogueWrapProps {
+  show: boolean;
+}
+export const CatalogueWrap = styled.div<CatalogueWrapProps>`
+  display: ${(props) => (props.show ? 'block' : 'none')};
+  width: 100%;
+  height: 90vh;
+  background-color: ${Colors.black};
+
+  position: absolute;
+  top: 10vh;
+  left: 0;
+
+  .menu-body {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      border-radius: 5px;
+      padding: 5px;
+      box-sizing: border-box;
+      background-color: ${Colors.light_black};
+      img {
+        width: 60px;
+        height: 60px;
+        border-radius: 5px;
+      }
+      h3 {
+        color: ${Colors.green};
+      }
+      p {
+        color: #fff;
+      }
+    }
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 430px) {
+      grid-template-columns: 1fr;
     }
   }
 `;
