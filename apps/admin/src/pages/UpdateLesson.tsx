@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { api_key, api_url, Colors } from '@skill-mask/app';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
