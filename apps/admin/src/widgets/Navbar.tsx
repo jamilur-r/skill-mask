@@ -29,6 +29,9 @@ const Navbar = ({ user, logout }: RXProps) => {
         <NavItem>
           <Link to="/category">Categories</Link>
         </NavItem>
+        <NavItem>
+          <Link to="/own/courses">Own Courses</Link>
+        </NavItem>
         <LogoutDiv onClick={() => logout()}>
           <LogOut color={Colors.green} size={20} style={{ margin: "0 10px" }} />
           <p>Logout</p>

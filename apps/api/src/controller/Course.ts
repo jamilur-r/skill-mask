@@ -1,6 +1,7 @@
 import { RequestHandler, Request, Response } from 'express';
 import Course from '../model/Course';
 import { Lessons, Text, Video } from '../model/Lessons';
+import { minifyVid } from '../utils/server-utils';
 
 export const getCourses: RequestHandler = async (
   req: Request,
@@ -55,6 +56,8 @@ export const startCourse: RequestHandler = async (
       course: result,
     });
   } catch (error) {
+    // console.log(error);
+    
     return res.status(400).json({
       msg: 'Failed to start course',
     });
@@ -68,7 +71,8 @@ export const addVideoLesson: RequestHandler = async (
   try {
     const { name, lesson_type, lesson_number, text, title, course_id } =
       req.body;
-    const video_url = '/media/' + req.file?.filename;
+    const urlFromReq = '/media/' + req.file?.filename;
+    const video_url = await minifyVid(urlFromReq);
 
     const course = await Course.findOne({ _id: course_id });
     const video = new Video({

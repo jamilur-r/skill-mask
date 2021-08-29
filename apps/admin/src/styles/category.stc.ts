@@ -1,8 +1,11 @@
-import styled from "styled-components";
-import { Colors } from "@skill-mask/app";
+import styled from 'styled-components';
+import { Colors } from '@skill-mask/app';
 
-export const Table = styled.table`
-  width: 70%;
+interface TableProps {
+  width?: string;
+}
+export const Table = styled.table<TableProps>`
+  width: ${(props) => (props.width ? props.width : '70%')};
   margin-left: 50px;
   table-layout: fixed;
 
@@ -51,7 +54,7 @@ export const CatForm = styled.form`
     box-sizing: border-box;
     border: none;
     outline: none;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     color: ${Colors.black};
     font-weight: bold;
@@ -64,12 +67,12 @@ export const CatForm = styled.form`
     box-sizing: border-box;
     border: none;
     outline: none;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     color: ${Colors.black};
     font-weight: bold;
   }
-  input[type="submit"] {
+  input[type='submit'] {
     width: 100%;
     margin-bottom: 10px;
     background-color: ${Colors.black};
@@ -77,20 +80,18 @@ export const CatForm = styled.form`
     box-sizing: border-box;
     border: none;
     outline: none;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 15px;
     color: ${Colors.green};
     font-weight: bold;
   }
 `;
 
-
 export const DeleteButton = styled.button`
   padding: 10px 16px;
   background-color: ${Colors.red};
   border: none;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: bold;
   color: ${Colors.black};
-  
-`
+`;

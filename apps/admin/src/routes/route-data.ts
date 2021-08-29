@@ -1,6 +1,7 @@
-import Categories from "../pages/Categories";
-import Dashboard from "../pages/Dashboard";
-import Signin from "../pages/Signin";
+import Categories from '../pages/Categories';
+import Dashboard from '../pages/Dashboard';
+import OwnCourses from '../pages/OwnCourses';
+import Signin from '../pages/Signin';
 
 interface RoutesDataType {
   path: string;
@@ -22,6 +23,11 @@ export const RouteData: RoutesDataType[] = [
   {
     path: '/category',
     comp: Categories,
+    protected: true,
+  },
+  {
+    path: '/own/courses',
+    comp: OwnCourses,
     protected: true,
   },
 ];
