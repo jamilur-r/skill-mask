@@ -86,10 +86,12 @@ export const CatForm = styled.form`
     font-weight: bold;
   }
 `;
-
-export const DeleteButton = styled.button`
+interface DBProps {
+  color?: string
+}
+export const DeleteButton = styled.button<DBProps>`
   padding: 10px 16px;
-  background-color: ${Colors.red};
+  background-color: ${props=> props.color ? props.color : Colors.red};
   border: none;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { RequestHandler, Request, Response } from 'express';
 import Course from '../model/Course';
 import { Lessons, Text, Video } from '../model/Lessons';
@@ -8,7 +9,10 @@ export const getCourses: RequestHandler = async (
   res: Response
 ) => {
   try {
-    const courses = await Course.find().populate(['creator', 'category']);
+    const courses = await Course.find({ status: 'PUBLISHED' }).populate([
+      'creator',
+      'category',
+    ]);
     return res.status(200).json({ courses });
   } catch (error) {
     return res.status(400).json({
@@ -16,6 +20,61 @@ export const getCourses: RequestHandler = async (
     });
   }
 };
+
+export const getVideo: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const video = await Video.findOne({ _id: id });
+    return res.status(200).json({ video });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(400).json({
+      msg: 'Something went wrong',
+    });
+  }
+};
+
+export const getCoursesOw: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const courses = await Course.find().populate([
+      'creator',
+      'category',
+      'lessons',
+      {
+        path: "lessons",
+        populate: {
+          path: 'video',
+        },
+      },
+      {
+        path: "lessons",
+        populate: {
+          path: 'text',
+        },
+      },
+      {
+        path: "lessons",
+        populate: {
+          path: 'quiz',
+        },
+      },
+    ]);
+
+    return res.status(200).json({ courses });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(400).json({
+      msg: 'Something went wrong',
+    });
+  }
+};
+
 export const getCourseById: RequestHandler = async (
   req: Request,
   res: Response
@@ -23,7 +82,7 @@ export const getCourseById: RequestHandler = async (
   try {
     const id = req.params;
 
-    const course = await Course.findOne({ id: id });
+    const course = await Course.findOne({ _id: id });
     const result = await course.populate(['category', 'creator', 'lessons']);
     return res.status(200).json({
       course: result,
@@ -40,7 +99,7 @@ export const startCourse: RequestHandler = async (
   res: Response
 ) => {
   try {
-    const { course_type, course_level, creator, category } = req.body;
+    const { course_type, course_level, creator, category, name } = req.body;
     const image_url = '/media/' + req.file?.filename;
 
     const course = new Course({
@@ -49,6 +108,7 @@ export const startCourse: RequestHandler = async (
       creator,
       category,
       image_url,
+      name,
     });
     await course.save();
     const result = await course.populate(['category', 'creator']);
@@ -57,7 +117,7 @@ export const startCourse: RequestHandler = async (
     });
   } catch (error) {
     // console.log(error);
-    
+
     return res.status(400).json({
       msg: 'Failed to start course',
     });

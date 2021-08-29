@@ -89,7 +89,7 @@ export const upload = multer({ storage: storage });
 
 export const minifyVid = async (filePath: string): Promise<string> => {
   try {
-    const out = filePath.split('.')[0] + '.mkv';
+    const out = filePath.split('.')[0] + '.avi';
 
     const options = {
       input: path.join(__dirname, filePath),

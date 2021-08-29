@@ -4,6 +4,8 @@ import {
   addVideoLesson,
   getCourseById,
   getCourses,
+  getCoursesOw,
+  getVideo,
   startCourse,
 } from '../controller/Course';
 import {
@@ -15,11 +17,16 @@ import {
 
 export const CourseRouter = express.Router();
 
+CourseRouter.get('/all', ValidateRequest, getCourses);
+CourseRouter.get('/admin',ValidateRequest, CheckAdmin, getCoursesOw);
+CourseRouter.get('/by/:id', ValidateRequest, getCourseById);
+CourseRouter.get("/video/:id",ValidateRequest, Tokenize, CheckAdmin, getVideo)
+
+
 CourseRouter.post(
   '/add',
   ValidateRequest,
   Tokenize,
-  CheckAdmin,
   upload.single('image'),
   startCourse
 );
@@ -27,18 +34,7 @@ CourseRouter.post(
   '/add/lesson/video',
   ValidateRequest,
   Tokenize,
-  CheckAdmin,
   upload.single('video'),
   addVideoLesson
 );
-
-CourseRouter.post(
-  '/add/lesson/text',
-  ValidateRequest,
-  Tokenize,
-  CheckAdmin,
-  addTextLesson
-);
-
-CourseRouter.get('/:id', ValidateRequest, getCourseById);
-CourseRouter.get('/', ValidateRequest, getCourses);
+CourseRouter.post('/add/lesson/text', ValidateRequest, Tokenize, addTextLesson);

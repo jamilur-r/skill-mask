@@ -5,6 +5,7 @@ import { AuthReducer } from './reducer/AuthReducer';
 import { CategoryReducer } from './reducer/CategoryReducer';
 import { api_key } from '@skill-mask/app';
 import logger from 'redux-logger';
+import { CourseReducer } from './reducer/CourseReducer';
 const persistConfig = {
   key: api_key,
   storage: storage,
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: AuthReducer,
   category: CategoryReducer,
+  course: CourseReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

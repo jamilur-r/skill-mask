@@ -9,7 +9,10 @@ const CourseSchema = new Schema<CoursesType, CourseModel, CoursesType>(
       type: String,
       required: true,
     },
-
+    name: {
+      type: String,
+      required: true,
+    },
     course_type: {
       type: String,
       required: true,
@@ -17,6 +20,11 @@ const CourseSchema = new Schema<CoursesType, CourseModel, CoursesType>(
     lessons: {
       type: [Schema.Types.ObjectId],
       ref: 'lessons',
+    },
+    status: {
+      type: String,
+      required: true,
+      default: 'DRAFT',
     },
     enrollment_count: {
       type: Number,

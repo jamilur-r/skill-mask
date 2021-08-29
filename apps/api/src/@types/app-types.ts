@@ -78,8 +78,10 @@ export interface CategoriesType extends Document {
 
 export interface CoursesType extends Document {
   id: string;
+  name: string;
   image_url: string;
   course_type: 'COURSE' | 'PATH' | 'EXAM';
+  status: "PUBLISHED" | "DRAFT" | "REVIEW";
   lessons?: any;
   enrollment_count: number;
   creator: Schema.Types.ObjectId;

@@ -15,7 +15,7 @@ export const CourseReducer = (
       return [...state, action.payload];
     case 'ADD_LESSON':
       state.map((item) => {
-        if (item.id === action.payload.id) {
+        if (item._id === action.payload.id) {
           item.lessons?.push(action.payload.lesson);
         }
         return item;
@@ -23,7 +23,7 @@ export const CourseReducer = (
       return state;
     case 'UPDATE_COURSE':
       state.map((item) => {
-        if (item.id === action.payload.id) {
+        if (item._id === action.payload._id) {
           item = action.payload;
         }
         return item;
