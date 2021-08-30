@@ -46,19 +46,19 @@ export const getCoursesOw: RequestHandler = async (
       'category',
       'lessons',
       {
-        path: "lessons",
+        path: 'lessons',
         populate: {
           path: 'video',
         },
       },
       {
-        path: "lessons",
+        path: 'lessons',
         populate: {
           path: 'text',
         },
       },
       {
-        path: "lessons",
+        path: 'lessons',
         populate: {
           path: 'quiz',
         },
@@ -99,7 +99,16 @@ export const startCourse: RequestHandler = async (
   res: Response
 ) => {
   try {
-    const { course_type, course_level, creator, category, name } = req.body;
+    const {
+      course_type,
+      course_level,
+      creator,
+      category,
+      name,
+      price,
+      status,
+      description,
+    } = req.body;
     const image_url = '/media/' + req.file?.filename;
 
     const course = new Course({
@@ -109,6 +118,9 @@ export const startCourse: RequestHandler = async (
       category,
       image_url,
       name,
+      price,
+      description,
+      status,
     });
     await course.save();
     const result = await course.populate(['category', 'creator']);
@@ -153,11 +165,36 @@ export const addVideoLesson: RequestHandler = async (
     course.lessons.push(lesson.id);
     await course.save();
 
-    const result = await course.populate(['creator', 'lessons', 'category']);
+    const result = await course.populate([
+      { path: 'creator' },
+      { path: 'category' },
+      { path: 'lessons' },
+      {
+        path: 'lessons',
+        populate: {
+          path: 'video',
+        },
+      },
+      {
+        path: 'lessons',
+        populate: {
+          path: 'text',
+        },
+      },
+      {
+        path: 'lessons',
+        populate: {
+          path: 'quiz',
+        },
+      },
+    ]);
+
     return res.status(200).json({
       course: result,
     });
   } catch (error) {
+    console.log(error);
+
     return res.status(400).json({
       msg: 'Failed to add video',
     });

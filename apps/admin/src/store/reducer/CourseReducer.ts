@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { CoursesType, CourseAction } from '../../types/course-types';
 
 const initState: CoursesType[] = [];
@@ -21,6 +22,16 @@ export const CourseReducer = (
         return item;
       });
       return state;
+    case 'UPDATE_VIDEO_LESSON':
+      const course = state.filter((c) => c._id === action.payload.course_id)[0];
+      course.lessons?.map((l) => {
+        if (l._id === action.payload.lesson_id) {
+          l = action.payload.lesson;
+        }
+        return l;
+      });
+
+      return state;
     case 'UPDATE_COURSE':
       state.map((item) => {
         if (item._id === action.payload._id) {
@@ -28,7 +39,12 @@ export const CourseReducer = (
         }
         return item;
       });
-      return state;
+      return state.map((item) => {
+        if (item._id === action.payload._id) {
+          item = action.payload;
+        }
+        return item;
+      });
     default:
       return state;
   }

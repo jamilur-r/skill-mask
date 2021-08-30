@@ -9,7 +9,7 @@ import { Page } from '../styles/global.stc';
 const CourseDetail = ({ courses, token }: RXProps) => {
   const { id } = useParams<{ id: string }>();
   const course = courses.filter((item) => item._id === id)[0];
-
+  course.lessons?.sort((a, b) => a.lesson_number - b.lesson_number);
   return (
     <Page>
       <div
@@ -30,7 +30,9 @@ const CourseDetail = ({ courses, token }: RXProps) => {
           Courses - <span>{course.name}</span>
         </h2>
         <Link
-          to="/"
+          to={{
+            pathname: `/add/lesson/${id}`,
+          }}
           style={{
             padding: '10px 15px',
             background: Colors.black,
@@ -44,10 +46,15 @@ const CourseDetail = ({ courses, token }: RXProps) => {
       {course.lessons?.map((item, key) => (
         <LessonWrap key={key}>
           <h4>
-            {item.lesson_number}. {item.name}
+            {item.lesson_number}. {item.name} <br />
+            <span style={{ marginLeft: 15, color: '#fff' }}>
+              {item.video?.title.substring(0, 15)}...
+            </span>
           </h4>
           <p>{item.lesson_type}</p>
-          <p>{item.video?.text}</p>
+          <p style={{ width: '200px' }}>
+            {item.video?.text?.substring(0, 25)}...
+          </p>
           <video
             src={api_url + item.video?.video_url}
             width="150px"
@@ -57,7 +64,7 @@ const CourseDetail = ({ courses, token }: RXProps) => {
             <Link
               className="btn"
               to={{
-                pathname: `/update/lesson/${item._id}`,
+                pathname: `/update/lesson/${item._id}/${course._id}`,
               }}
             >
               UPDATE

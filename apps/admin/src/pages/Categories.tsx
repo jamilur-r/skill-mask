@@ -20,7 +20,6 @@ const Categories = ({ token, category, addCat, delCat, getall }: RXProps) => {
       getall(res);
     })();
   }, []);
-  console.log(category);
   
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -114,6 +113,7 @@ const Categories = ({ token, category, addCat, delCat, getall }: RXProps) => {
         ></textarea>
         <input
           type="file"
+          accept="image/*"
           name=""
           id=""
           required

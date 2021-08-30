@@ -1,6 +1,8 @@
+import CAForm from '../pages/CAForm';
 import Categories from '../pages/Categories';
 import CourseDetail from '../pages/CourseDetail';
 import Dashboard from '../pages/Dashboard';
+import LAForm from '../pages/LAForm';
 import OwnCourses from '../pages/OwnCourses';
 import Signin from '../pages/Signin';
 import UpdateLesson from '../pages/UpdateLesson';
@@ -38,8 +40,18 @@ export const RouteData: RoutesDataType[] = [
     protected: true,
   },
   {
-    path: '/update/lesson/:id',
+    path: '/update/lesson/:id/:course_id',
     comp: UpdateLesson,
+    protected: true,
+  },
+  {
+    path: '/add/lesson/:course_id',
+    comp: LAForm,
+    protected: true,
+  },
+  {
+    path: '/course/add',
+    comp: CAForm,
     protected: true,
   },
 ];

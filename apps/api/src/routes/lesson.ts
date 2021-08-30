@@ -1,6 +1,6 @@
 import * as express from 'express';
-import { getLessonById } from '../controller/Lesson';
-import { CheckAdmin, Tokenize, ValidateRequest } from '../utils/server-utils';
+import { getLessonById, updateVideolesson } from '../controller/Lesson';
+import { CheckAdmin, Tokenize, upload, ValidateRequest } from '../utils/server-utils';
 
 export const LessonRouter = express.Router();
 
@@ -10,4 +10,13 @@ LessonRouter.get(
   Tokenize,
   CheckAdmin,
   getLessonById
+);
+
+LessonRouter.post(
+  '/update/video',
+  ValidateRequest,
+  Tokenize,
+  CheckAdmin,
+  upload.single("video"),
+  updateVideolesson
 );

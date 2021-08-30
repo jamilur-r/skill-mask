@@ -37,7 +37,7 @@ const OwnCourses = ({ courses, getCourses, token }: RXProps) => {
           Courses
         </h2>
         <Link
-          to="/"
+          to="/course/add"
           style={{
             padding: '10px 15px',
             background: Colors.black,

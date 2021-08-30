@@ -37,4 +37,6 @@ CourseRouter.post(
   upload.single('video'),
   addVideoLesson
 );
+
+
 CourseRouter.post('/add/lesson/text', ValidateRequest, Tokenize, addTextLesson);

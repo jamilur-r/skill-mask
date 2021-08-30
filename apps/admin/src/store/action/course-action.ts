@@ -16,3 +16,42 @@ export const getAllCourses = async (token: string | null) => {
     return null;
   }
 };
+
+export const addCourseVideo = async (
+  token: string | null,
+  course_id: string,
+  lessoninfo: {
+    name: string;
+    lesson_number: number;
+    lesson_type: 'VIDEO' | 'QUIZ' | 'TEXT';
+  },
+  videoinfo: {
+    video: File | undefined;
+    text: string;
+    title: string;
+  }
+) => {
+  try {
+    const url = api_url + '/course/add/lesson/video';
+    const formData = new FormData();
+
+    formData.append('video', videoinfo.video ? videoinfo.video : "", videoinfo.video?.name);
+    formData.append('name', lessoninfo.name);
+    formData.append('lesson_number', lessoninfo.lesson_number.toString());
+    formData.append('lesson_type', lessoninfo.lesson_type);
+    formData.append('text', videoinfo.text);
+    formData.append('title', videoinfo.title);
+    formData.append('course_id', course_id);
+
+    const res = await axios.post(url, formData, {
+      headers: {
+        key: api_key,
+        authorization: 'barer ' + token,
+      },
+    });
+
+    return res.data.course;
+  } catch (error) {
+    return null;
+  }
+};

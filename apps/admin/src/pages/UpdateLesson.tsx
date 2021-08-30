@@ -12,7 +12,7 @@ import LUFom from '../widgets/LUFom';
 
 const UpdateLesson = ({ token }: RXProps) => {
   const [lesson, setLesson] = useState<LessonsType>();
-  const { id } = useParams<{ id: string }>();
+  const { id, course_id } = useParams<{ id: string; course_id: string }>();
   const history = useHistory();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const UpdateLesson = ({ token }: RXProps) => {
           Update Lesson - {lesson?.name}
         </h2>
       </Page>
-      <LUFom lesson={lesson} />
+      <LUFom lesson={lesson} course_id={course_id}/>
     </>
   );
 };

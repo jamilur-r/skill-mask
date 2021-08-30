@@ -49,6 +49,7 @@ export const VideoForm = styled.div`
       font-size: 14px;
       font-weight: 600;
       color: ${Colors.black};
+      margin: 15px 0;
     }
 
     input {
@@ -96,5 +97,90 @@ export const VideoForm = styled.div`
       font-weight: bold;
       border-radius: 5px;
     }
+  }
+`;
+
+export const CourseAddWrap = styled.div`
+  width: 1152px;
+  form {
+    width: calc(100% - 50px);
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: ${Colors.black};
+    }
+    select {
+      width: 300px;
+      margin-bottom: 10px;
+      background-color: ${Colors.light_blue};
+      padding: 18px 15px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: ${Colors.black};
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    input {
+      width: 300px;
+      margin-bottom: 10px;
+      background-color: ${Colors.light_blue};
+      padding: 18px 15px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: ${Colors.black};
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    input[type='submit'] {
+      width: 300px;
+      margin-bottom: 10px;
+      background-color: ${Colors.black};
+      padding: 18px 15px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: ${Colors.green};
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    textarea {
+      width: 600px;
+      margin-bottom: 10px;
+      background-color: ${Colors.light_blue};
+      padding: 18px 15px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: ${Colors.black};
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  }
+
+  .video-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
   }
 `;

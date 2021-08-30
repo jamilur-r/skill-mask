@@ -9,12 +9,23 @@ const CourseSchema = new Schema<CoursesType, CourseModel, CoursesType>(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
+    intro_video: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
     },
     course_type: {
       type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
       required: true,
     },
     lessons: {
