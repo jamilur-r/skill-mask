@@ -27,7 +27,7 @@ CourseRouter.post(
   '/add',
   ValidateRequest,
   Tokenize,
-  upload.single('image'),
+  upload.any(),
   startCourse
 );
 CourseRouter.post(

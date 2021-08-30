@@ -34,7 +34,8 @@ export const addCourseVideo = async (
   try {
     const url = api_url + '/course/add/lesson/video';
     const formData = new FormData();
-
+    console.log(videoinfo);
+    
     formData.append('video', videoinfo.video ? videoinfo.video : "", videoinfo.video?.name);
     formData.append('name', lessoninfo.name);
     formData.append('lesson_number', lessoninfo.lesson_number.toString());

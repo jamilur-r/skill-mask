@@ -47,19 +47,9 @@ const CourseDetail = ({ courses, token }: RXProps) => {
         <LessonWrap key={key}>
           <h4>
             {item.lesson_number}. {item.name} <br />
-            <span style={{ marginLeft: 15, color: '#fff' }}>
-              {item.video?.title.substring(0, 15)}...
-            </span>
+            
           </h4>
           <p>{item.lesson_type}</p>
-          <p style={{ width: '200px' }}>
-            {item.video?.text?.substring(0, 25)}...
-          </p>
-          <video
-            src={api_url + item.video?.video_url}
-            width="150px"
-            controls
-          ></video>
           <div className="btns">
             <Link
               className="btn"

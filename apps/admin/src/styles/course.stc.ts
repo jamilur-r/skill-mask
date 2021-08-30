@@ -2,7 +2,7 @@ import { Colors } from '@skill-mask/app';
 import styled from 'styled-components';
 
 export const LessonWrap = styled.div`
-  width: 1152px;
+  width: 450px;
   padding: 15px 20px;
   box-sizing: border-box;
   margin: 20px 50px;
@@ -44,7 +44,20 @@ export const VideoForm = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-
+    select {
+      width: 300px;
+      margin-bottom: 10px;
+      background-color: ${Colors.light_blue};
+      padding: 18px 15px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: ${Colors.black};
+      font-weight: bold;
+      border-radius: 5px;
+    }
     label {
       font-size: 14px;
       font-weight: 600;

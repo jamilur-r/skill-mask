@@ -106,10 +106,14 @@ export const startCourse: RequestHandler = async (
       category,
       name,
       price,
-      status,
       description,
     } = req.body;
-    const image_url = '/media/' + req.file?.filename;
+    const imgFile = req.files[0];
+    const vidFile = req.files[1];
+
+    const image_url = '/media/' + imgFile.filename;
+    const vid_path = '/media/' + vidFile.filename;
+    const intro_video = await minifyVid(vid_path);
 
     const course = new Course({
       course_type,
@@ -120,7 +124,8 @@ export const startCourse: RequestHandler = async (
       name,
       price,
       description,
-      status,
+      status: 'DRAFT',
+      intro_video,
     });
     await course.save();
     const result = await course.populate(['category', 'creator']);
@@ -128,7 +133,7 @@ export const startCourse: RequestHandler = async (
       course: result,
     });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
 
     return res.status(400).json({
       msg: 'Failed to start course',
@@ -143,6 +148,7 @@ export const addVideoLesson: RequestHandler = async (
   try {
     const { name, lesson_type, lesson_number, text, title, course_id } =
       req.body;
+      
     const urlFromReq = '/media/' + req.file?.filename;
     const video_url = await minifyVid(urlFromReq);
 
@@ -188,7 +194,7 @@ export const addVideoLesson: RequestHandler = async (
         },
       },
     ]);
-
+    
     return res.status(200).json({
       course: result,
     });

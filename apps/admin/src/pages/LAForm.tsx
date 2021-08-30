@@ -43,7 +43,7 @@ const LAForm = ({ token, update_course }: RXProps) => {
 
   const handleVideoChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setLessonInput({ ...lessonInput, [e.target.name]: e.target.value });
+  ) => setVideoInput({ ...videoInput, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
