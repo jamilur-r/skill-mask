@@ -1,5 +1,7 @@
 import { Schema, Model, model } from 'mongoose';
 import { CoursesType } from '../@types/app-types';
+import { removeFile } from '../utils/server-utils';
+import { Lessons } from './Lessons';
 
 type CourseModel = Model<CoursesType>;
 
@@ -58,6 +60,21 @@ const CourseSchema = new Schema<CoursesType, CourseModel, CoursesType>(
   },
   { timestamps: true }
 );
+
+CourseSchema.pre('deleteOne',{document: true, query: false} , async function (next) {
+
+  removeFile(this.image_url);
+  if (this.intro_video) {
+    removeFile(this.intro_video);
+  }
+
+  this.lessons.map(async (item) => {
+    const lesson = await Lessons.findOne({ _id: item })
+    await lesson.deleteOne();
+  });
+  next();
+});
+
 
 const Course = model('courses', CourseSchema);
 export default Course;

@@ -110,3 +110,10 @@ export const minifyVid = async (filePath: string): Promise<string> => {
     return null;
   }
 };
+
+export const removeFile = (filePath: string) => {
+  console.log(filePath);
+
+  const loc = path.join(__dirname, filePath);
+  fs.unlinkSync(loc);
+};

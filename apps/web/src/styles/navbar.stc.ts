@@ -226,12 +226,11 @@ export const CatalogueWrap = styled.div<CatalogueWrapProps>`
       align-items: flex-start;
       justify-content: center;
       border-radius: 5px;
-      padding: 5px;
+      padding: 15px;
       box-sizing: border-box;
       background-color: ${Colors.light_black};
       img {
         width: 60px;
-        height: 60px;
         border-radius: 5px;
       }
       h3 {

@@ -62,7 +62,12 @@ export const ADD_COURSE = 'ADD_COURSE';
 export const UPDATE_COURSE = 'UPDATE_COURSE';
 export const ADD_LESSON = 'ADD_LESSON';
 export const UPDATE_VIDEO_LESSON = 'UPDATE_VIDEO_LESSON';
+export const DELETE_COURSE = 'DELETE_COURSE';
 
+interface DCAction {
+  type: typeof DELETE_COURSE;
+  payload: string;
+}
 interface GETCAction {
   type: typeof GET_COURSE;
   payload: CoursesType;
@@ -105,4 +110,5 @@ export type CourseAction =
   | ADDCAction
   | UPDATECAction
   | ULVlesson
+  | DCAction
   | ADDLAction;

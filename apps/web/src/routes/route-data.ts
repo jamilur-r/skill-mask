@@ -4,7 +4,9 @@ import UserDashboard from '../pages/Auth/UserDashboard';
 import UserSignIn from '../pages/Auth/UserSignIn';
 import UserSignUp from '../pages/Auth/UserSignUp';
 import CateloguePage from '../pages/CateloguePage';
+import CourseDetail from '../pages/CourseDetail';
 import Home from '../pages/Home';
+import Search from '../pages/Search';
 
 export interface RouteDataType {
   path: string;
@@ -42,4 +44,14 @@ export const RouteData: RouteDataType[] = [
     protected: false,
     comp: CateloguePage,
   },
+  {
+    path: '/search/:query',
+    protected: false,
+    comp: Search,
+  },
+  {
+    path: "/course/detail/:name",
+    protected: false,
+    comp: CourseDetail
+  }
 ];

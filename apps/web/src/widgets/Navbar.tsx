@@ -26,7 +26,7 @@ const Navbar = ({ isAuth, logout }: RXProps) => {
         <Link to="/">
           <Brand>
             Sk<span className="i-span">i</span>ll{' '}
-            <span className="m-span">M</span>ater
+            <span className="m-span">M</span>ask
           </Brand>
         </Link>
         <Routes show={showMenu}>

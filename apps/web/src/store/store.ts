@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import { AuthReducer } from './reducer/AuthReducer';
 import logger from 'redux-logger';
 import { CategoryReducer } from './reducer/CategoryReducer';
+import { CourseReducer } from './reducer/CourseReducer';
 
 const persistConfig = {
   key: 'root',
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: AuthReducer,
   category: CategoryReducer,
+  course: CourseReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
-import { Schema, Model, model } from "mongoose";
-import { CategoriesType } from "../@types/app-types";
+import { Schema, Model, model } from 'mongoose';
+import { CategoriesType } from '../@types/app-types';
+import { removeFile } from '../utils/server-utils';
 
-type CategoryModel = Model<CategoriesType>
+type CategoryModel = Model<CategoriesType>;
 
 const CategorySchema = new Schema<
   CategoriesType,
@@ -36,8 +37,12 @@ CategorySchema.methods.toJSON = function () {
   return category;
 };
 
+CategorySchema.pre('deleteOne', { document: true, query: false }, async function(next)  {
+  removeFile(this.image_url);
+});
+
 const Category = model<CategoriesType, CategoryModel>(
-  "category",
+  'category',
   CategorySchema
 );
 export default Category;

@@ -98,6 +98,8 @@ const LAForm = ({ token, update_course }: RXProps) => {
                 name="text"
                 placeholder="Expain"
                 required
+                minLength={300}
+                maxLength={5000}
                 onChange={(e) => handleVideoChange(e)}
               ></textarea>
             </div>

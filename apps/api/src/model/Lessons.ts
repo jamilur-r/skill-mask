@@ -6,6 +6,7 @@ import {
   TextsType,
   VideosType,
 } from '../@types/app-types';
+import { removeFile } from '../utils/server-utils';
 
 type LessonsModel = Model<LessonsType>;
 type TextModel = Model<TextsType>;
@@ -30,6 +31,11 @@ const VideoSchema = new Schema<VideosType, VideoModel, VideosType>({
     type: String,
     require: true,
   },
+});
+
+VideoSchema.pre('deleteOne', { document: true, query: false }, function (next) {
+  removeFile(this.video_url);
+  next();
 });
 
 const QuestionSchema = new Schema<QuestionsType, QuestionModel, QuestionsType>({
@@ -59,6 +65,14 @@ const QuizSchema = new Schema<QuizzesType, QuizModel, QuizzesType>({
   },
 });
 
+QuizSchema.pre('deleteOne', { document: true, query: false }, function (next) {
+  this.questions.map(async (item) => {
+    const question = await Question.findOne({ _id: item });
+    await question.deleteOne();
+  });
+  next();
+});
+
 const LessonSchema = new Schema<LessonsType, LessonsModel, LessonsType>(
   {
     name: {
@@ -78,6 +92,24 @@ const LessonSchema = new Schema<LessonsType, LessonsModel, LessonsType>(
     },
   },
   { timestamps: true }
+);
+
+LessonSchema.pre(
+  'deleteOne',
+  { document: true, query: false },
+  async function (next) {
+    if (this.video) {
+      const item = await Video.findOne({ _id: this.video });
+      await item.deleteOne();
+    } else if (this.text) {
+      const item = await Text.findOne({ _id: this.text });
+      await item.deleteOne();
+    } else if (this.quiz) {
+      const item = await Quiz.findOne({ _id: this.quiz });
+      await item.deleteOne();
+    }
+    next();
+  }
 );
 
 export const Lessons = model<LessonsType, LessonsModel>(

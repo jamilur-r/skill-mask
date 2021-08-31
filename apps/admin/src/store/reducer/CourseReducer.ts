@@ -33,18 +33,20 @@ export const CourseReducer = (
 
       return state;
     case 'UPDATE_COURSE':
-      state.map((item) => {
-        if (item._id === action.payload._id) {
-          item = action.payload;
-        }
-        return item;
-      });
+      // state.map((item) => {
+      //   if (item._id === action.payload._id) {
+      //     item = action.payload;
+      //   }
+      //   return item;
+      // });
       return state.map((item) => {
         if (item._id === action.payload._id) {
           item = action.payload;
         }
         return item;
       });
+    case 'DELETE_COURSE':
+      return state.filter((course) => course._id !== action.payload);
     default:
       return state;
   }

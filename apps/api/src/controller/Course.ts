@@ -148,7 +148,7 @@ export const addVideoLesson: RequestHandler = async (
   try {
     const { name, lesson_type, lesson_number, text, title, course_id } =
       req.body;
-      
+
     const urlFromReq = '/media/' + req.file?.filename;
     const video_url = await minifyVid(urlFromReq);
 
@@ -194,7 +194,7 @@ export const addVideoLesson: RequestHandler = async (
         },
       },
     ]);
-    
+
     return res.status(200).json({
       course: result,
     });
@@ -235,6 +235,21 @@ export const addTextLesson: RequestHandler = async (
   } catch (error) {
     return res.status(400).json({
       msg: 'Failed to add text',
+    });
+  }
+};
+
+export const deleteCourse: RequestHandler = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const course = await Course.findOne({ _id: id });
+    await course.deleteOne();
+    
+    return res.status(200).json({ msg: 'Course deleted' });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      msg: 'faild to remove',
     });
   }
 };

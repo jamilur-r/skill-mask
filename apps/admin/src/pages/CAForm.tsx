@@ -1,7 +1,9 @@
 import { api_key, api_url, Colors } from '@skill-mask/app';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { ArrowLeft } from 'react-feather';
 import { connect, ConnectedProps } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getAllCat } from '../store/action/cat-action';
 import { AdminAppState } from '../store/store';
 import { VideoForm } from '../styles/course.stc';
@@ -16,6 +18,8 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
       getall(res);
     })();
   }, []);
+  const history = useHistory();
+
   const [video, setVideo] = useState<File>();
   const [image, setImage] = useState<File>();
   const [data, setData] = useState<{
@@ -36,7 +40,7 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
     course_level: 'BEGINEER',
   });
   console.log(image);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
@@ -84,6 +88,14 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
             color: Colors.black,
           }}
         >
+          <span>
+            <ArrowLeft
+              color={Colors.black}
+              size={30}
+              style={{ marginRight: 15 }}
+              onClick={() => history.goBack()}
+            />
+          </span>{' '}
           Add Courses
         </h2>
       </div>
@@ -172,7 +184,7 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
             min={300}
             onChange={(e) => handleChange(e)}
           />
-          <input type="submit" value="UPDATE" />
+          <input type="submit" value="ADD NEW" />
         </form>
       </VideoForm>
     </Page>

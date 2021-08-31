@@ -1,4 +1,5 @@
-import { api_url, Colors } from '@skill-mask/app';
+import { api_key, api_url, Colors } from '@skill-mask/app';
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,9 +7,13 @@ import { getAllCourses } from '../store/action/course-action';
 import { AdminAppState } from '../store/store';
 import { DeleteButton, Table } from '../styles/category.stc';
 import { Page } from '../styles/global.stc';
-import { CoursesType, GET_ALL_COURSE } from '../types/course-types';
+import {
+  CoursesType,
+  DELETE_COURSE,
+  GET_ALL_COURSE,
+} from '../types/course-types';
 
-const OwnCourses = ({ courses, getCourses, token }: RXProps) => {
+const OwnCourses = ({ courses, getCourses, token, delCourse }: RXProps) => {
   useEffect(() => {
     (async () => {
       const res = await getAllCourses(token);
@@ -16,6 +21,22 @@ const OwnCourses = ({ courses, getCourses, token }: RXProps) => {
     })();
   }, []);
   const ownerCourses = courses?.filter((item) => item.creator.role === 'ADMIN');
+  const handleDelete = async (id: string) => {
+    const url = api_url + `/course/delete/${id}`;
+    const res = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          key: api_key,
+          authorization: 'jasj ' + token,
+        },
+      }
+    );
+    if (res.status === 200) {
+      delCourse(id);
+    }
+  };
 
   return (
     <Page>
@@ -78,6 +99,7 @@ const OwnCourses = ({ courses, getCourses, token }: RXProps) => {
                   alt={item.name}
                   width="60px"
                   height="60px"
+                  style={{borderRadius: 10}}
                 />
               </td>
               <td>
@@ -109,7 +131,9 @@ const OwnCourses = ({ courses, getCourses, token }: RXProps) => {
                 </Link>
               </td>
               <td>
-                <DeleteButton>Delete</DeleteButton>
+                <DeleteButton onClick={() => handleDelete(item._id)}>
+                  Delete
+                </DeleteButton>
               </td>
             </tr>
           ))}
@@ -128,6 +152,10 @@ const mapDispatch = {
   getCourses: (data: CoursesType[]) => ({
     type: GET_ALL_COURSE,
     payload: data,
+  }),
+  delCourse: (id: string) => ({
+    type: DELETE_COURSE,
+    payload: id,
   }),
 };
 

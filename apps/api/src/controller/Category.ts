@@ -1,14 +1,14 @@
-import { Request, RequestHandler, Response } from "express";
-import Category from "../model/Category";
-import * as fs from "fs";
-import * as path from "path";
+import { Request, RequestHandler, Response } from 'express';
+import Category from '../model/Category';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export const getAllCategories: RequestHandler = async (_, res: Response) => {
   try {
     const data = await Category.find();
     return res.status(200).json(data);
   } catch (error) {
-    return res.status(400).json({ msg: "Not found any" });
+    return res.status(400).json({ msg: 'Not found any' });
   }
 };
 
@@ -21,7 +21,7 @@ export const getCategoryById: RequestHandler = async (
     const data = await Category.findOne({ _id: id });
     return res.status(200).json(data);
   } catch (error) {
-    return res.status(400).json({ msg: "Not found any" });
+    return res.status(400).json({ msg: 'Not found any' });
   }
 };
 
@@ -31,7 +31,7 @@ export const createCategory: RequestHandler = async (
 ) => {
   try {
     const { name, description } = req.body;
-    const image_url = "/media/" + req.file?.filename;
+    const image_url = '/media/' + req.file?.filename;
 
     const category = new Category({
       name: name,
@@ -44,7 +44,7 @@ export const createCategory: RequestHandler = async (
   } catch (error) {
     console.log(error);
 
-    return res.status(400).json({ msg: "Failed to create" });
+    return res.status(400).json({ msg: 'Failed to create' });
   }
 };
 
@@ -55,7 +55,7 @@ export const updateCategory: RequestHandler = async (
   try {
     const { id, name, description } = req.body;
     if (req.file) {
-      const image_url = "/media/" + req.file?.filename;
+      const image_url = '/media/' + req.file?.filename;
       const category = await Category.findOneAndUpdate(
         { _id: id },
         { name: name, description: description, image_url: image_url }
@@ -69,7 +69,7 @@ export const updateCategory: RequestHandler = async (
       return res.status(200).json(category);
     }
   } catch (error) {
-    return res.status(400).json({ msg: "Failed to update" });
+    return res.status(400).json({ msg: 'Failed to update' });
   }
 };
 
@@ -78,17 +78,17 @@ export const deleteCategory: RequestHandler = async (
   res: Response
 ) => {
   try {
-    const { id, image_url } = req.body;
-    await Category.findOneAndDelete({ _id: id });
-    const loc = path.join("src", image_url);
-    fs.unlinkSync(loc);
+    const { id, } = req.body;
+    const category = await Category.findOne({ _id: id });
+    await category.deleteOne();
+    // const loc = path.join(__dirname, image_url);
+    // fs.unlinkSync(loc);
 
-
-    return res.status(200).json({ msg: "Category deleted" });
+    return res.status(200).json({ msg: 'Category deleted' });
   } catch (error) {
     console.log(error);
 
-    return res.status(400).json({ msg: "Failed to delete" });
+    return res.status(400).json({ msg: 'Failed to delete' });
   }
 };
 
@@ -100,6 +100,6 @@ export const getCategoryCount: RequestHandler = async (
     const count = await Category.count();
     return res.status(200).json({ count });
   } catch (error) {
-    return res.status(400).json({ msg: "Failed to get count" });
+    return res.status(400).json({ msg: 'Failed to get count' });
   }
 };
