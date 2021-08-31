@@ -115,7 +115,7 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
             name="description"
             required
             minLength={300}
-            maxLength={1200}
+            maxLength={600}
             onChange={(e) => handleChange(e)}
           ></textarea>
 
