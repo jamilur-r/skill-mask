@@ -4,4 +4,4 @@ sudo git pull
 sudo yarn install
 sudo yarn build
 sudo systemctl restart nginx
-sudo pm2 restart all
+sudo pm2 restart 0
