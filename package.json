@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./dist/main.js",
     "start:server": "pm2 start eco.config.js -i max --watch",
-    "build": "nx run api:build && nx run web:build",
+    "build": "nx run api:build:production && nx run web:build:production",
     "restart": "pm2 restart skill-mask",
     "start:nx": "nx serve",
     "build:nx": "nx build",

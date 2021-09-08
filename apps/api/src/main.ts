@@ -30,11 +30,11 @@ app.use(urlencoded({ extended: true }));
 app.use('/api', RootRouter);
 
 app.use('/api/media', express.static(path.join(__dirname, 'media')));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("(/*)?", (req, res) => {
-  return res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
+// app.get("(/*)?", (req, res) => {
+//   return res.sendFile(path.join(__dirname, 'public', 'index.html'))
+// })
 
 connect(db_url, {keepAlive: true, })
   .then(() => console.log('DB CONNECTED'))
