@@ -31,7 +31,7 @@ export const Colors = {
 
 
 export const site_title = "Skill Mask";
-export const api_url = process.env.api_url || "http://localhost:5000/api" 
+export const api_url = process.env.api_url || "https://localhost:5000/api" 
 export const api_key = process.env.api_key || "tHZo7YINsWRVZfLUOSbFt3JGAD4pjt1s";
 
 export const toast_suc = (msg: string) =>

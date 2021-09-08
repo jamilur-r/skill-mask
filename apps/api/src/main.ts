@@ -1,7 +1,6 @@
 import * as express from 'express';
 import { Application } from 'express';
 import * as cors from 'cors';
-import { MongoClient } from 'mongodb';
 import * as morgan from 'morgan';
 import * as path from 'path';
 import { json, urlencoded } from 'body-parser';
@@ -9,6 +8,9 @@ import { environment } from './environments/environment';
 import { RootRouter } from './routes';
 import compression = require('compression');
 import { connect } from 'mongoose';
+import * as fs from 'fs';
+import * as https from 'https';
+
 const db_url: string = process.env.db_url || environment.db_url;
 // const db_url: string =
 //   process.env.db_url ||
@@ -36,10 +38,9 @@ app.use('/api/media', express.static(path.join(__dirname, 'media')));
 //   return res.sendFile(path.join(__dirname, 'public', 'index.html'))
 // })
 
-connect(db_url, {keepAlive: true, })
+connect(db_url, { keepAlive: true })
   .then(() => console.log('DB CONNECTED'))
   .catch((err) => console.log(err));
-
 
 // async function run() {
 //   try {
@@ -55,6 +56,18 @@ connect(db_url, {keepAlive: true, })
 // }
 // run().catch(console.dir);
 
-const server = app.listen(port);
+if (!environment.production) {
+  const server = app.listen(port);
+  server.on('error', console.error);
+} else {
+  const crt = fs.readFileSync(
+    '/etc/letsencrypt/live/skillmask.com/fullchain.pem'
+  );
+  const key = fs.readFileSync(
+    '/etc/letsencrypt/live/skillmask.com/privkey.pem'
+  );
 
-server.on('error', console.error);
+  const credentials = { key: key, cert: crt };
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port);
+}
