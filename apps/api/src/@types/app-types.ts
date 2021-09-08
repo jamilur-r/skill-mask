@@ -84,7 +84,7 @@ export interface CoursesType extends Document {
   image_url: string;
   course_type: 'COURSE' | 'PATH' | 'EXAM';
   status: "PUBLISHED" | "DRAFT" | "REVIEW";
-  lessons?: Schema.Types.ObjectId[];
+  lessons?: any;
   enrollment_count: number;
   creator: Schema.Types.ObjectId;
   category: Schema.Types.ObjectId;

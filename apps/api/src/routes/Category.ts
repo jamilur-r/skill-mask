@@ -11,18 +11,18 @@ import {
   CheckAdmin,
   Tokenize,
   upload,
-  ValidateRequest,
+  
 } from "../utils/server-utils";
 
 export const CategortRouter = express.Router();
 
-CategortRouter.get("/all", ValidateRequest, getAllCategories);
-CategortRouter.get("/:id", ValidateRequest, getCategoryById);
-CategortRouter.get("/count", ValidateRequest, getCategoryCount);
+CategortRouter.get("/all",  getAllCategories);
+CategortRouter.get("/:id",  getCategoryById);
+CategortRouter.get("/count",  getCategoryCount);
 
 CategortRouter.post(
   "/",
-  ValidateRequest,
+  
   Tokenize,
   CheckAdmin,
   upload.single("image"),
@@ -30,7 +30,7 @@ CategortRouter.post(
 );
 CategortRouter.post(
   "/update",
-  ValidateRequest,
+  
   Tokenize,
   CheckAdmin,
   upload.single("image"),
@@ -38,7 +38,7 @@ CategortRouter.post(
 );
 CategortRouter.post(
   "/delete",
-  ValidateRequest,
+  
   Tokenize,
   CheckAdmin,
   deleteCategory
