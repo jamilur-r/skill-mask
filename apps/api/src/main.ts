@@ -28,7 +28,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 // app.use('/admin', express.static(path.join(__dirname, 'admin')));
-app.get('/api/text', (req, res) => {
+app.get('/', (req, res) => {
   return res.status(200).json({ msg: 'working' });
 });
 app.use('/api', RootRouter);
@@ -58,7 +58,7 @@ connect(db_url, { keepAlive: true })
 // }
 // run().catch(console.dir);
 
-if (!environment.production) {
+if (environment.production) {
   const server = app.listen(port);
   server.on('error', console.error);
 } else {
@@ -72,4 +72,5 @@ if (!environment.production) {
   const credentials = { key: key, cert: crt };
   const httpsServer = https.createServer(credentials, app);
   httpsServer.listen(port);
+  
 }
