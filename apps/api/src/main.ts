@@ -57,20 +57,21 @@ connect(db_url, { keepAlive: true })
 //   }
 // }
 // run().catch(console.dir);
+const server = app.listen(port);
+server.on('error', console.error);
 
-if (environment.production) {
-  const server = app.listen(port);
-  server.on('error', console.error);
-} else {
-  const crt = fs.readFileSync(
-    '/etc/letsencrypt/live/skillmask.com/fullchain.pem'
-  );
-  const key = fs.readFileSync(
-    '/etc/letsencrypt/live/skillmask.com/privkey.pem'
-  );
+// if (environment.production) {
 
-  const credentials = { key: key, cert: crt };
-  const httpsServer = https.createServer(credentials, app);
-  httpsServer.listen(port);
-  
-}
+// } else {
+//   const crt = fs.readFileSync(
+//     '/etc/letsencrypt/live/skillmask.com/fullchain.pem'
+//   );
+//   const key = fs.readFileSync(
+//     '/etc/letsencrypt/live/skillmask.com/privkey.pem'
+//   );
+
+//   const credentials = { key: key, cert: crt };
+//   const httpsServer = https.createServer(credentials, app);
+//   httpsServer.listen(port);
+
+// }
