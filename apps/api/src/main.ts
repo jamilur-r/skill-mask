@@ -28,7 +28,9 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 
 // app.use('/admin', express.static(path.join(__dirname, 'admin')));
-
+app.get('/api/text', (req, res) => {
+  return res.status(200).json({ msg: 'working' });
+});
 app.use('/api', RootRouter);
 
 app.use('/api/media', express.static(path.join(__dirname, 'media')));
