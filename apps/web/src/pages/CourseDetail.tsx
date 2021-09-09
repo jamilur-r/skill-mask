@@ -56,7 +56,7 @@ const CourseDetail = ({ courses }: RXProps) => {
               <p style={{ fontSize: 24, fontWeight: 'bold' }}>
                 &#2547; {course.price}
               </p>
-              <Link to="#">
+              <Link to="/">
                 Enroll Now{' '}
                 <ArrowRight
                   color={Colors.black}

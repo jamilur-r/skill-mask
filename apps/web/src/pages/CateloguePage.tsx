@@ -6,6 +6,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { AppState } from '../store/store';
 import { CatalogueBanner } from '../styles/catalogue.stc';
 import moment from 'moment';
+import CourseCards from '../widgets/CourseCards';
 
 const CateloguePage = ({ categories }: RXProps) => {
   const { name } = useParams<{ name: string }>();
@@ -40,6 +41,7 @@ const CateloguePage = ({ categories }: RXProps) => {
           <img src={api_url + category.image_url} alt={category.name} />
         </div>
       </CatalogueBanner>
+      
     </>
   );
 };

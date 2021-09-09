@@ -11,6 +11,7 @@ interface Props extends RXProps {
   message: string;
   displayCount: number;
   filter?: 'COURSE' | 'PATH' | 'EXAM';
+  noCourseMsg: string;
 }
 
 const CourseCards = ({
@@ -19,6 +20,7 @@ const CourseCards = ({
   message,
   displayCount,
   course,
+  noCourseMsg,
 }: Props) => {
   const maxLimit = displayCount < course.length ? displayCount : course.length;
 
@@ -40,7 +42,7 @@ const CourseCards = ({
       <div className={data.length < 1 ? '' : 'cards'}>
         {data.length < 1 ? (
           <NoCourse>
-            <h2>No course alvailable yet</h2>
+            <h2 dangerouslySetInnerHTML={{__html: noCourseMsg}}></h2>
           </NoCourse>
         ) : (
           data.map((item, key) => (
