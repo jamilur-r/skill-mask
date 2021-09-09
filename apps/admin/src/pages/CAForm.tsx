@@ -1,9 +1,10 @@
-import { api_key, api_url, Colors } from '@skill-mask/app';
+import { api_key, api_url, Colors, toast_suc } from '@skill-mask/app';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from 'react-feather';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { getAllCat } from '../store/action/cat-action';
 import { AdminAppState } from '../store/store';
 import { VideoForm } from '../styles/course.stc';
@@ -63,6 +64,8 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
     });
     if (res.status === 200) {
       addCourse(res.data.course);
+      toast_suc('Course Uploaded');
+      history.goBack();
     }
   };
 
@@ -72,122 +75,125 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
     >
   ) => setData({ ...data, [e.target.name]: e.target.value });
   return (
-    <Page>
-      <div
-        style={{
-          margin: '30px 30px 50px 50px',
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}
-      >
-        <h2
+    <>
+      <ToastContainer />
+      <Page>
+        <div
           style={{
-            marginRight: 15,
-            color: Colors.black,
+            margin: '30px 30px 50px 50px',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
           }}
         >
-          <span>
-            <ArrowLeft
-              color={Colors.black}
-              size={30}
-              style={{ marginRight: 15 }}
-              onClick={() => history.goBack()}
+          <h2
+            style={{
+              marginRight: 15,
+              color: Colors.black,
+            }}
+          >
+            <span>
+              <ArrowLeft
+                color={Colors.black}
+                size={30}
+                style={{ marginRight: 15 }}
+                onClick={() => history.goBack()}
+              />
+            </span>{' '}
+            Add Courses
+          </h2>
+        </div>
+        <VideoForm>
+          <form method="POST" onSubmit={async (e) => handleSubmit(e)}>
+            <label htmlFor="">Course Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Course Name"
+              required
+              onChange={(e) => handleChange(e)}
             />
-          </span>{' '}
-          Add Courses
-        </h2>
-      </div>
-      <VideoForm>
-        <form method="POST" onSubmit={async (e) => handleSubmit(e)}>
-          <label htmlFor="">Course Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Course Name"
-            required
-            onChange={(e) => handleChange(e)}
-          />
 
-          <label htmlFor="">Course Short Description</label>
-          <textarea
-            name="description"
-            required
-            minLength={300}
-            maxLength={600}
-            onChange={(e) => handleChange(e)}
-          ></textarea>
+            <label htmlFor="">Course Short Description</label>
+            <textarea
+              name="description"
+              required
+              minLength={300}
+              maxLength={600}
+              onChange={(e) => handleChange(e)}
+            ></textarea>
 
-          <label htmlFor="">Course Type</label>
-          <select
-            name="course_type"
-            id=""
-            defaultValue="COURSE"
-            onChange={(e) => handleChange(e)}
-          >
-            <option value="COURSE">Course</option>
-            <option value="PATH">Career Path</option>
-            <option value="EXAM">Mock Test</option>
-          </select>
+            <label htmlFor="">Course Type</label>
+            <select
+              name="course_type"
+              id=""
+              defaultValue="COURSE"
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="COURSE">Course</option>
+              <option value="PATH">Career Path</option>
+              <option value="EXAM">Mock Test</option>
+            </select>
 
-          <label htmlFor="">Course Designed For</label>
-          <select
-            name="course_level"
-            id=""
-            defaultValue="BEGINEER"
-            onChange={(e) => handleChange(e)}
-          >
-            <option value="BEGINEER">BEGINEER</option>
-            <option value="INTERMEDIATE">INTERMEDIATE</option>
-            <option value="PROFESSIONAL">PROFESSIONAL</option>
-          </select>
+            <label htmlFor="">Course Designed For</label>
+            <select
+              name="course_level"
+              id=""
+              defaultValue="BEGINEER"
+              onChange={(e) => handleChange(e)}
+            >
+              <option value="BEGINEER">BEGINEER</option>
+              <option value="INTERMEDIATE">INTERMEDIATE</option>
+              <option value="PROFESSIONAL">PROFESSIONAL</option>
+            </select>
 
-          <label htmlFor="">Category</label>
-          <select
-            name="category"
-            id=""
-            defaultValue={category[0].id}
-            onChange={(e) => handleChange(e)}
-          >
-            {category.map((item, key) => (
-              <option key={key} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
+            <label htmlFor="">Category</label>
+            <select
+              name="category"
+              id=""
+              defaultValue={category[0].id}
+              onChange={(e) => handleChange(e)}
+            >
+              {category.map((item, key) => (
+                <option key={key} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
 
-          <label htmlFor="">Course Banner</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) =>
-              setImage(e.target.files ? e.target.files[0] : undefined)
-            }
-          />
+            <label htmlFor="">Course Banner</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) =>
+                setImage(e.target.files ? e.target.files[0] : undefined)
+              }
+            />
 
-          <label htmlFor="">Course Intro Video</label>
-          <input
-            type="file"
-            accept="video/*"
-            onChange={(e) =>
-              setVideo(e.target.files ? e.target.files[0] : undefined)
-            }
-          />
+            <label htmlFor="">Course Intro Video</label>
+            <input
+              type="file"
+              accept="video/*"
+              onChange={(e) =>
+                setVideo(e.target.files ? e.target.files[0] : undefined)
+              }
+            />
 
-          <label htmlFor="">Course Price</label>
-          <input
-            type="number"
-            name="price"
-            placeholder="Course price"
-            required
-            min={300}
-            onChange={(e) => handleChange(e)}
-          />
-          <input type="submit" value="ADD NEW" />
-        </form>
-      </VideoForm>
-    </Page>
+            <label htmlFor="">Course Price</label>
+            <input
+              type="number"
+              name="price"
+              placeholder="Course price"
+              required
+              min={300}
+              onChange={(e) => handleChange(e)}
+            />
+            <input type="submit" value="ADD NEW" />
+          </form>
+        </VideoForm>
+      </Page>
+    </>
   );
 };
 

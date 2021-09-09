@@ -17,12 +17,15 @@ export const createCat = async (
 
     const res = await axios.post(url, formData, {
       headers: {
+        'content-type': 'multipart/form-data',
         key: api_key,
         authorization: 'barear ' + auth,
       },
     });
     return res.data;
-  } catch (error) {}
+  } catch (error) {
+    return null;
+  }
 };
 
 export const getAllCat = async () => {

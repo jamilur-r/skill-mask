@@ -5,6 +5,7 @@ import { AuthReducer } from './reducer/AuthReducer';
 import logger from 'redux-logger';
 import { CategoryReducer } from './reducer/CategoryReducer';
 import { CourseReducer } from './reducer/CourseReducer';
+import { environment } from '../environments/environment.prod';
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,9 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, applyMiddleware(logger));
+export const store = environment.production
+  ? createStore(persistedReducer)
+  : createStore(persistedReducer, applyMiddleware(logger));
 
 export const persistor = persistStore(store);
 

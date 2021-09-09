@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { api_key, api_url, Colors } from '@skill-mask/app';
+import { api_key, api_url, Colors, toast_suc } from '@skill-mask/app';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from 'react-feather';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { AdminAppState } from '../store/store';
 import { Page } from '../styles/global.stc';
 import { LessonsType } from '../types/course-types';
@@ -25,12 +26,16 @@ const UpdateLesson = ({ token }: RXProps) => {
         },
       });
 
-      setLesson(data.data.lesson);
+      if (data.status === 200) {
+        setLesson(data.data.lesson);
+        toast_suc('Lesson Updated');
+      }
     })();
   }, []);
 
   return (
     <>
+      <ToastContainer />
       <Page>
         <h2
           style={{
@@ -53,7 +58,7 @@ const UpdateLesson = ({ token }: RXProps) => {
           Update Lesson - {lesson?.name}
         </h2>
       </Page>
-      <LUFom lesson={lesson} course_id={course_id}/>
+      <LUFom lesson={lesson} course_id={course_id} />
     </>
   );
 };

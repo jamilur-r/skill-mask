@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import { AdminSignIn } from '../store/action/auth-action';
 import { UserType } from '../types/auth-types';
 import { AdminAppState } from '../store/store';
+import { toast_suc } from '@skill-mask/app';
+import { ToastContainer } from 'react-toastify';
 
 const Signin = ({ auth, signin }: RXProps) => {
   const [cred, setCred] = useState({
@@ -19,6 +21,7 @@ const Signin = ({ auth, signin }: RXProps) => {
     const res = await AdminSignIn(cred.email, cred.pass);
     if (res.user !== null) {
       signin(res.token, res.user);
+      toast_suc('Signed In');
     }
   };
 
@@ -26,29 +29,36 @@ const Signin = ({ auth, signin }: RXProps) => {
     return <Redirect to={{ pathname: '/dashboard' }} />;
   }
   return (
-    <SigninWrap>
-      <Form onSubmit={(e: React.FormEvent) => handleSubmit(e)} method="POST">
-        <h2 style={{ textAlign: 'center' }}>SIGN IN - ADMIN</h2>
-        <Label>Email</Label>
-        <Input
-          placeholder="Email"
-          required
-          type="email"
-          name="email"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-        />
+    <>
+      <ToastContainer />
+      <SigninWrap>
+        <Form onSubmit={(e: React.FormEvent) => handleSubmit(e)} method="POST">
+          <h2 style={{ textAlign: 'center' }}>SIGN IN - ADMIN</h2>
+          <Label>Email</Label>
+          <Input
+            placeholder="Email"
+            required
+            type="email"
+            name="email"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
+          />
 
-        <Label>Password</Label>
-        <Input
-          placeholder="Password"
-          required
-          type="password"
-          name="pass"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-        />
-        <Submit>SIGN IN</Submit>
-      </Form>
-    </SigninWrap>
+          <Label>Password</Label>
+          <Input
+            placeholder="Password"
+            required
+            type="password"
+            name="pass"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e)
+            }
+          />
+          <Submit>SIGN IN</Submit>
+        </Form>
+      </SigninWrap>
+    </>
   );
 };
 

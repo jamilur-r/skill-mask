@@ -1,8 +1,9 @@
-import { Colors } from '@skill-mask/app';
+import { Colors, toast_suc } from '@skill-mask/app';
 import React, { useState } from 'react';
 import { ArrowLeft } from 'react-feather';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { addCourseVideo } from '../store/action/course-action';
 import { AdminAppState } from '../store/store';
 import { CourseAddWrap } from '../styles/course.stc';
@@ -56,6 +57,7 @@ const LAForm = ({ token, update_course }: RXProps) => {
       );
       if (res !== null) {
         update_course(res);
+        toast_suc("Lessson Added")
       }
     }
   };
@@ -114,48 +116,51 @@ const LAForm = ({ token, update_course }: RXProps) => {
   };
 
   return (
-    <Page>
-      <ArrowLeft
-        style={{ marginLeft: 50 }}
-        size={30}
-        color={Colors.black}
-        onClick={() => history.goBack()}
-      />
-      <CourseAddWrap>
-        <form method="POST" onSubmit={async (e) => await handleSubmit(e)}>
-          <label htmlFor="name">Lesson Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Lesson Name"
-            required
-            onChange={(e) => handleLessonChange(e)}
-          />
-          <label htmlFor="number">Lesson Number</label>
-          <input
-            type="number"
-            name="lesson_number"
-            placeholder="Lesson Number"
-            required
-            onChange={(e) => handleLessonChange(e)}
-          />
-          <label htmlFor="lesson_type">Lesson Type</label>
-          <select
-            defaultValue="VIDEO"
-            name="lesson_type"
-            placeholder="Lesson Name"
-            required
-            onChange={(e) => handleLessonChange(e)}
-          >
-            <option value="VIDEO">VIDEO</option>
-            <option value="TEXT">TEXT</option>
-            <option value="QUIZ">QUIZ</option>
-          </select>
-          {renderLessonTypeForm()}
-          <input type="submit" value="ADD LESSON" />
-        </form>
-      </CourseAddWrap>
-    </Page>
+    <>
+      <ToastContainer />
+      <Page>
+        <ArrowLeft
+          style={{ marginLeft: 50 }}
+          size={30}
+          color={Colors.black}
+          onClick={() => history.goBack()}
+        />
+        <CourseAddWrap>
+          <form method="POST" onSubmit={async (e) => await handleSubmit(e)}>
+            <label htmlFor="name">Lesson Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Lesson Name"
+              required
+              onChange={(e) => handleLessonChange(e)}
+            />
+            <label htmlFor="number">Lesson Number</label>
+            <input
+              type="number"
+              name="lesson_number"
+              placeholder="Lesson Number"
+              required
+              onChange={(e) => handleLessonChange(e)}
+            />
+            <label htmlFor="lesson_type">Lesson Type</label>
+            <select
+              defaultValue="VIDEO"
+              name="lesson_type"
+              placeholder="Lesson Name"
+              required
+              onChange={(e) => handleLessonChange(e)}
+            >
+              <option value="VIDEO">VIDEO</option>
+              <option value="TEXT">TEXT</option>
+              <option value="QUIZ">QUIZ</option>
+            </select>
+            {renderLessonTypeForm()}
+            <input type="submit" value="ADD LESSON" />
+          </form>
+        </CourseAddWrap>
+      </Page>
+    </>
   );
 };
 

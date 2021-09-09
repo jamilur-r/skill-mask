@@ -5,6 +5,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
 import RootRoute from "./routes/RootRoute";
 import { persistor, store } from "./store/store";
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>
