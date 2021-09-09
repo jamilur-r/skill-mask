@@ -8,6 +8,10 @@ import { environment } from '../environments/environment';
 import * as hbjs from 'handbrake-js';
 import * as fs from 'fs';
 
+export const media_path = environment.production
+  ? path.join('/home/media')
+  : path.join(__dirname, 'media');
+
 const secret: string = process.env.secret || environment.secret;
 
 export const ValidateRequest: RequestHandler = async (
@@ -77,7 +81,7 @@ export const CheckAdmin: RequestHandler = (
 // FILE UPLOAD
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'media'));
+    cb(null, media_path);
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname);
@@ -92,28 +96,26 @@ export const minifyVid = async (filePath: string): Promise<string> => {
     const out = filePath.split('.')[0] + '.avi';
 
     const options = {
-      input: path.join(__dirname, filePath),
-      output: path.join(__dirname, out),
+      input: path.join(media_path, filePath),
+      output: path.join(media_path, out),
       preset: 'Very Fast 720p30',
     };
     hbjs
       .spawn(options)
       .on('error', console.error)
       .on('complete', () => {
-        const loc = path.join(__dirname, filePath);
+        const loc = path.join(media_path, filePath);
         fs.unlinkSync(loc);
       });
-    return out;
+    const url = '/media/' + out;
+    return url;
   } catch (error) {
     console.log(error);
-
     return null;
   }
 };
 
 export const removeFile = (filePath: string) => {
-  console.log(filePath);
-
-  const loc = path.join(__dirname, filePath);
+  const loc = path.join(media_path, filePath);
   fs.unlinkSync(loc);
 };

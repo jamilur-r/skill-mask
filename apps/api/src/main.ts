@@ -10,6 +10,7 @@ import compression = require('compression');
 import { connect } from 'mongoose';
 import * as fs from 'fs';
 import * as https from 'https';
+import { media_path } from './utils/server-utils';
 
 const db_url: string = process.env.db_url || environment.db_url;
 // const db_url: string =
@@ -52,7 +53,8 @@ app.use(urlencoded({ extended: true }));
 
 app.use('/api', RootRouter);
 
-app.use('/api/media', express.static(path.join(__dirname, 'media')));
+app.use('/api/media', express.static(path.join(media_path)));
+
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // app.get("(/*)?", (req, res) => {

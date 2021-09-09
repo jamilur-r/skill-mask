@@ -62,10 +62,12 @@ const CourseSchema = new Schema<CoursesType, CourseModel, CoursesType>(
 );
 
 CourseSchema.pre('deleteOne',{document: true, query: false} , async function (next) {
-
-  removeFile(this.image_url);
+  const img_path = this.image_url.split('/')[this.image_url.split('/').length - 1];
+  const vid_path = this.intro_video.split('/')[this.intro_video.split('/').length - 1];
+  removeFile(img_path);
+  
   if (this.intro_video) {
-    removeFile(this.intro_video);
+    removeFile(vid_path);
   }
 
   this.lessons.map(async (item) => {

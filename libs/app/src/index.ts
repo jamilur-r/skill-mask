@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { toast } from "react-toastify";
-import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { toast } from 'react-toastify';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
 const createNoopStorage = () => {
   return {
@@ -16,8 +16,10 @@ const createNoopStorage = () => {
   };
 };
 
-export const storage = typeof window === "undefined" ? createNoopStorage() : createWebStorage("local");
-
+export const storage =
+  typeof window === 'undefined'
+    ? createNoopStorage()
+    : createWebStorage('local');
 
 export const Colors = {
   black: '#272739',
@@ -29,14 +31,17 @@ export const Colors = {
   red: '#F53E6A',
 };
 
+export const site_title = 'Skill Mask';
+// export const api_url = 'http://localhost:5000/api';
 
-export const site_title = "Skill Mask";
-export const api_url = process.env.api_url || "https://skillmask.com/api" 
-export const api_key = process.env.api_key || "tHZo7YINsWRVZfLUOSbFt3JGAD4pjt1s";
+
+export const api_url ="https://skillmask.com/api"
+
+export const api_key = 'tHZo7YINsWRVZfLUOSbFt3JGAD4pjt1s';
 
 export const toast_suc = (msg: string) =>
   toast(msg, {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -48,7 +53,7 @@ export const toast_suc = (msg: string) =>
 
 export const toast_err = (msg: string) =>
   toast.error(msg, {
-    position: "top-right",
+    position: 'top-right',
     autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,

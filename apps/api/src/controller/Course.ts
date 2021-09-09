@@ -1,5 +1,6 @@
 /* eslint-disable prefer-const */
 import { RequestHandler, Request, Response } from 'express';
+import * as path from 'path';
 import Course from '../model/Course';
 import { Lessons, Text, Video } from '../model/Lessons';
 import { minifyVid } from '../utils/server-utils';
@@ -112,8 +113,7 @@ export const startCourse: RequestHandler = async (
     const vidFile = req.files[1];
 
     const image_url = '/media/' + imgFile.filename;
-    const vid_path = '/media/' + vidFile.filename;
-    const intro_video = await minifyVid(vid_path);
+    const intro_video = await minifyVid(vidFile.filename);
 
     const course = new Course({
       course_type,
@@ -149,7 +149,7 @@ export const addVideoLesson: RequestHandler = async (
     const { name, lesson_type, lesson_number, text, title, course_id } =
       req.body;
 
-    const urlFromReq = '/media/' + req.file?.filename;
+    const urlFromReq = req.file?.filename;
     const video_url = await minifyVid(urlFromReq);
 
     const course = await Course.findOne({ _id: course_id });
@@ -239,12 +239,15 @@ export const addTextLesson: RequestHandler = async (
   }
 };
 
-export const deleteCourse: RequestHandler = async (req: Request, res: Response) => {
+export const deleteCourse: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const { id } = req.params;
     const course = await Course.findOne({ _id: id });
     await course.deleteOne();
-    
+
     return res.status(200).json({ msg: 'Course deleted' });
   } catch (error) {
     console.log(error);

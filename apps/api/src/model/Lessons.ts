@@ -34,7 +34,9 @@ const VideoSchema = new Schema<VideosType, VideoModel, VideosType>({
 });
 
 VideoSchema.pre('deleteOne', { document: true, query: false }, function (next) {
-  removeFile(this.video_url);
+  const vid_path = this.video_url.split('/')[this.video_url.split('/').length - 1];
+
+  removeFile(vid_path);
   next();
 });
 

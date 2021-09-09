@@ -1,7 +1,7 @@
 import { RequestHandler, Response, Request } from 'express';
 import * as path from 'path';
 import { Lessons, Video } from '../model/Lessons';
-import { minifyVid } from '../utils/server-utils';
+import { media_path, minifyVid } from '../utils/server-utils';
 import * as fs from 'fs';
 
 export const getLessonById: RequestHandler = async (
@@ -40,7 +40,7 @@ export const updateVideolesson: RequestHandler = async (
         lesson_id,
         video_id,
       } = req.body;
-      const urlFromReq = '/media/' + req.file.filename;
+      const urlFromReq = req.file.filename;
       const video_url = await minifyVid(urlFromReq);
       await Lessons.findOneAndUpdate(
         { _id: lesson_id },
@@ -51,7 +51,10 @@ export const updateVideolesson: RequestHandler = async (
         }
       );
       Video.findOne({ _id: video_id }).then((res) => {
-        const url = path.join(__dirname, res.video_url);
+        const url = path.join(
+          media_path,
+          res.video_url.split('/')[res.video_url.split('/').length - 1 ]
+        );
         fs.unlinkSync(url);
       });
 

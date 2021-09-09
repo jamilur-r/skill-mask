@@ -38,7 +38,9 @@ CategorySchema.methods.toJSON = function () {
 };
 
 CategorySchema.pre('deleteOne', { document: true, query: false }, async function(next)  {
-  removeFile(this.image_url);
+  const path = this.image_url.split('/')[this.image_url.split('/').length - 1];
+  removeFile(path);
+  next();
 });
 
 const Category = model<CategoriesType, CategoryModel>(
