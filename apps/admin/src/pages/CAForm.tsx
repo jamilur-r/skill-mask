@@ -39,7 +39,6 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
     price: 0,
     course_level: 'BEGINEER',
   });
-  console.log(image);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +56,7 @@ const CAForm = ({ category, getall, token, user, addCourse }: RXProps) => {
     const url = api_url + '/course/add';
     const res = await axios.post(url, formData, {
       headers: {
+        'content-type': 'multipart/form-data',
         key: api_key,
         authorization: 'khecj ' + token,
       },
