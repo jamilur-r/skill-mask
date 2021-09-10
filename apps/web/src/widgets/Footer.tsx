@@ -40,7 +40,7 @@ const Footer = () => {
             Conditions
           </Link>
           <Link to="/career" style={{ color: Colors.green }}>
-            Career
+            Career <br /> with us
           </Link>
         </FootLinks>
         <FootCreator>

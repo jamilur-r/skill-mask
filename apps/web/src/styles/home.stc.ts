@@ -124,79 +124,6 @@ export const CCWrapper = styled.section`
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
 
-    .card {
-      width: 100%;
-      padding: 20px;
-      box-sizing: border-box;
-      background: ${Colors.black};
-      color: ${Colors.green};
-
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-
-      border-radius: 10px;
-      img {
-        width: 100%;
-        border-radius: 10px;
-      }
-      h2 {
-        font-size: 1.5rem;
-      }
-      .category {
-        font-size: 0.7rem;
-        background: ${Colors.light_black};
-        padding: 5px;
-        border-radius: 3px;
-        font-weight: 700;
-      }
-
-      .info {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        p {
-          font-size: 14px;
-          font-weight: 400;
-        }
-      }
-
-      .end-node {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        h3 {
-          font-size: 1.6rem;
-          font-weight: bold;
-          letter-spacing: 2px;
-        }
-        .btn {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-
-          background: ${Colors.green};
-          width: 45px;
-          height: 45px;
-          border-radius: 100%;
-        }
-      }
-      :nth-child(even) {
-        background: ${Colors.green};
-        color: ${Colors.black};
-        .category {
-          color: ${Colors.green};
-        }
-        .btn{
-          background: ${Colors.black};
-        }
-      }
-    }
     @media (max-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -205,7 +132,91 @@ export const CCWrapper = styled.section`
     }
   }
 `;
+interface CardProps {
+  width?: string;
+}
+export const Cards = styled.div<CardProps>`
+  width: ${(props) => (props.width ? props.width : '100%')};
+  padding: 20px;
+  box-sizing: border-box;
+  background: ${Colors.black};
+  color: ${Colors.green};
 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  border-radius: 10px;
+  img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  .category {
+    width: min-content;
+    font-size: 0.7rem;
+    background: ${Colors.light_black};
+    padding: 5px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  .info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    p {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  .end-node {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    h3 {
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .btn {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      background: ${Colors.green};
+      width: 45px;
+      height: 45px;
+      border-radius: 100%;
+    }
+  }
+  :nth-child(odd) {
+    background: ${Colors.green};
+    color: ${Colors.black};
+    .category {
+      color: ${Colors.green};
+    }
+    .info{
+      p{
+        color: ${Colors.black};
+      }
+    }
+    .btn {
+      background: ${Colors.black};
+      svg{
+        stroke: ${Colors.green};
+      }
+    }
+  }
+`;
 
 export const NoCourse = styled.div`
   width: 100%;
@@ -221,20 +232,19 @@ export const NoCourse = styled.div`
 
   text-align: center;
 
-  h2{
+  h2 {
     font-size: 2.6rem;
   }
 
-  @media (max-width: 768px){
-    h2{
+  @media (max-width: 768px) {
+    h2 {
       font-size: 2rem;
     }
   }
 
-  @media (max-width: 430px){
-    h2{
+  @media (max-width: 430px) {
+    h2 {
       font-size: 1.3rem;
     }
   }
-
-`
+`;

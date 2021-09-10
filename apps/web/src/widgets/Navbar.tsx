@@ -14,11 +14,13 @@ import {
 import { BookOpen, Grid, LogOut, Search, User } from 'react-feather';
 import { AppState } from '../store/store';
 import Catalogue from './Catalogue';
+import SearchWidget from './SearchWidget';
 
 const Navbar = ({ isAuth, logout }: RXProps) => {
   const [showMenu, setShow] = useState<boolean>(false);
   const [showUserDrop, setUserDrop] = useState<boolean>(false);
   const [catalogueMenuShow, setcatelogueMenuShow] = useState<boolean>(false);
+  const [showSearch, setSearchShow] = useState<boolean>(true);
 
   return (
     <Nav>
@@ -60,9 +62,10 @@ const Navbar = ({ isAuth, logout }: RXProps) => {
           </Link>
         </Routes>
         <MobileRoutes>
-          <button>
+          <button onClick={() => setSearchShow(!showSearch)}>
             <Search size={20} color={Colors.yellow} />
           </button>
+          <SearchWidget show={showSearch} />
           {isAuth ? (
             <>
               <button>

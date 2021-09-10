@@ -5,6 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppState } from '../store/store';
 import { CCWrapper, NoCourse } from '../styles/home.stc';
+import CourseItem from './CourseItem';
 
 interface Props extends RXProps {
   title: string;
@@ -42,37 +43,10 @@ const CourseCards = ({
       <div className={data.length < 1 ? '' : 'cards'}>
         {data.length < 1 ? (
           <NoCourse>
-            <h2 dangerouslySetInnerHTML={{__html: noCourseMsg}}></h2>
+            <h2 dangerouslySetInnerHTML={{ __html: noCourseMsg }}></h2>
           </NoCourse>
         ) : (
-          data.map((item, key) => (
-            <div key={key} className="card">
-              <img src={api_url + item.image_url} alt={item.name} />
-              <p className="category">{item.category.name}</p>
-              <h2>{item.name}</h2>
-              <div className="info">
-                <p>{item.lessons.length} X Lessons</p>
-                <p>
-                  {item.creator.role === 'ADMIN'
-                    ? 'by Skill Mask'
-                    : item.creator.first_name + ' ' + item.creator.last_name}
-                </p>
-              </div>
-
-              <div className="end-node">
-                <h3>&#2547; {item.price}</h3>
-                <Link
-                  to={{ pathname: `/course/detail/${item.name}` }}
-                  className="btn"
-                >
-                  <ArrowRight
-                    size={20}
-                    color={key % 2 === 0 ? Colors.black : Colors.green}
-                  />
-                </Link>
-              </div>
-            </div>
-          ))
+          data.map((item, key) => <CourseItem item={item} key={key} number={key} />)
         )}
       </div>
     </CCWrapper>
