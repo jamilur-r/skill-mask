@@ -55,6 +55,10 @@ export const Boxes = styled.div<BoxesProps>`
   gap: 25px;
 
   .box {
+    &:hover {
+      transition: 200ms ease-in;
+      box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+    }
     width: 100%;
     height: 208px;
     background-color: ${Colors.black};
@@ -146,11 +150,18 @@ export const Cards = styled.div<CardProps>`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-
+  &:hover {
+    transition: 300ms ease-in;
+    box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+  }
   border-radius: 10px;
   img {
     width: 100%;
     border-radius: 10px;
+    &:hover {
+      transition: 200ms ease-in;
+      box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+    }
   }
   h2 {
     font-size: 1.5rem;
@@ -196,6 +207,10 @@ export const Cards = styled.div<CardProps>`
       width: 45px;
       height: 45px;
       border-radius: 100%;
+      &:hover {
+        transition: 300ms ease-in;
+        box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+      }
     }
   }
   :nth-child(odd) {
@@ -204,14 +219,14 @@ export const Cards = styled.div<CardProps>`
     .category {
       color: ${Colors.green};
     }
-    .info{
-      p{
+    .info {
+      p {
         color: ${Colors.black};
       }
     }
     .btn {
       background: ${Colors.black};
-      svg{
+      svg {
         stroke: ${Colors.green};
       }
     }

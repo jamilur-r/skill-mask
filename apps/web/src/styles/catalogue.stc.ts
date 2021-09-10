@@ -78,6 +78,10 @@ export const FindMore = styled.section`
       display: none;
     }
     .btn {
+      &:hover {
+        transition: 200ms ease-in;
+        box-shadow: rgba(1, 1, 1, 0.1) 0px 7px 29px 0px;
+      }
       padding: 12px 15px;
       border-radius: 100px;
       font-size: 0.9rem;
@@ -105,7 +109,7 @@ export const FindMore = styled.section`
     }
   }
 
-  .courses{
+  .courses {
     margin-top: 50px;
     width: 100%;
     display: grid;

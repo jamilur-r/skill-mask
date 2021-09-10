@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import { Colors } from "@skill-mask/app";
+import styled from 'styled-components';
+import { Colors } from '@skill-mask/app';
 
 export const Foot = styled.footer`
   width: 100%;
   height: 380px;
   background-color: ${Colors.black};
-  @media (max-width: 768px){
-      height: auto;
-      box-sizing: border-box;
-      padding: 30px 0;
+  @media (max-width: 768px) {
+    height: auto;
+    box-sizing: border-box;
+    padding: 30px 0;
   }
 `;
 
@@ -109,6 +109,10 @@ export const FootCreator = styled.div`
     font-weight: bold;
     span {
       margin-right: 10px;
+    }
+    &:hover {
+      transition: 200ms ease-in;
+      box-shadow: rgba(1, 1, 1, 0.3) 0px 7px 29px 0px;
     }
   }
 

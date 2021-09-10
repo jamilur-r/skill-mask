@@ -24,8 +24,11 @@ interface WrapProps {
 }
 
 export const WidgetWrap = styled.div<WrapProps>`
+  box-shadow: rgba(1, 1, 1, 0.3) 0px 7px 29px 0px;
+  transition: 300ms ease-in;
+  z-index: 1000;
   width: 310px;
-  background-color: ${Colors.black};
+  background-color: ${Colors.light_black};
   padding: 5px;
   box-sizing: border-box;
   border-radius: 3px;
@@ -49,7 +52,7 @@ export const WidgetWrap = styled.div<WrapProps>`
     font-weight: 700;
     color: ${Colors.black};
     margin-bottom: 15px;
-    &:focus{
+    &:focus {
       border: none;
       outline: none;
     }

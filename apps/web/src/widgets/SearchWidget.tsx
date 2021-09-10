@@ -1,14 +1,17 @@
-import { api_url } from '@skill-mask/app';
-import React, { useState } from 'react';
+import { api_url, Colors } from '@skill-mask/app';
+import React, { useState, Dispatch, SetStateAction } from 'react';
+import { ArrowRight } from 'react-feather';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppState } from '../store/store';
 import { WidgetWrap } from '../styles/search.stc';
 
 interface Props extends RXProps {
   show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
 }
 
-const SearchWidget = ({ show, courses }: Props) => {
+const SearchWidget = ({ show, courses, setShow }: Props) => {
   const [query, setQuery] = useState<string>('');
 
   const filtered_courses = courses.filter(
@@ -22,14 +25,26 @@ const SearchWidget = ({ show, courses }: Props) => {
       <input
         type="text"
         value={query}
+        placeholder="Search Courses"
         onChange={(e) => setQuery(e.target.value)}
       />
       {query.length > 0
         ? filtered_courses.map((item, key) => (
-            <div className="course" key={key}>
-              <img src={api_url + item.image_url} alt={item.name} />
-              <p>{item.name.substring(0, 15)}...</p>
-            </div>
+            <Link
+              to={{ pathname: `/course/detail/${item.name}` }}
+              key={key}
+              style={{ color: 'transparent', width: '100%' }}
+              onClick={() => {
+                setShow(false);
+                setQuery('');
+              }}
+            >
+              <div className="course" key={key}>
+                <img src={api_url + item.image_url} alt={item.name} />
+                <p>{item.name.substring(0, 15)}...</p>
+                <ArrowRight color={Colors.green} size={20} />
+              </div>
+            </Link>
           ))
         : ''}
     </WidgetWrap>

@@ -221,6 +221,10 @@ export const CatalogueWrap = styled.div<CatalogueWrapProps>`
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     a {
+      &:hover {
+        transition: 200ms ease-in;
+        box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+      }
       display: flex;
       flex-direction: row;
       align-items: flex-start;

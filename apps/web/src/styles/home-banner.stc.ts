@@ -62,6 +62,9 @@ export const BannerWrap = styled.section<BannerWrapProps>`
           border: none;
           outline: none;
         }
+        &:hover {
+          box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+        }
       }
       input[type='submit'] {
         width: 30%;
@@ -76,6 +79,9 @@ export const BannerWrap = styled.section<BannerWrapProps>`
         color: ${Colors.green};
         font-weight: bold;
         border-radius: 0 5px 5px 0;
+        &:hover {
+          box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+        }
         &:focus {
           border: none;
           outline: none;

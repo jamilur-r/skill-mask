@@ -99,6 +99,10 @@ export const CourseBanner = styled.section`
           flex-direction: row;
           align-items: center;
           justify-content: center;
+          &:hover {
+            transition: 200ms ease-in;
+            box-shadow: rgba(1, 1, 1, 0.2) 0px 7px 29px 0px;
+          }
         }
       }
       @media (max-width: 1024px) {
