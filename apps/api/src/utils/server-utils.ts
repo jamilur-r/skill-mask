@@ -10,7 +10,7 @@ import * as fs from 'fs';
 
 export const media_path = environment.production
   ? path.join('/home/media')
-  : path.join(__dirname, 'media');
+  : path.join(__dirname, '..', 'media');
 
 const secret: string = process.env.secret || environment.secret;
 

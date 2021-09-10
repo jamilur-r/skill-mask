@@ -20,7 +20,7 @@ const Navbar = ({ isAuth, logout }: RXProps) => {
   const [showMenu, setShow] = useState<boolean>(false);
   const [showUserDrop, setUserDrop] = useState<boolean>(false);
   const [catalogueMenuShow, setcatelogueMenuShow] = useState<boolean>(false);
-  const [showSearch, setSearchShow] = useState<boolean>(true);
+  const [showSearch, setSearchShow] = useState<boolean>(false);
 
   return (
     <Nav>
