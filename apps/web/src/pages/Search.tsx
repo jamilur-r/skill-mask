@@ -16,9 +16,9 @@ const Search = ({ courses }: RXProps) => {
   const filtered_courses = courses
     .filter(
       (c) =>
-        c.name.includes(query) ||
-        c.category.name.includes(query) ||
-        c.description.includes(query)
+        c.name.toLowerCase().includes(query.toLowerCase()) ||
+        c.category.name.toLowerCase().includes(query.toLowerCase()) ||
+        c.description.toLowerCase().includes(query.toLowerCase())
     )
     .sort((i, j) => j.price - i.price);
 

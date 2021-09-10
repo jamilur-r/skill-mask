@@ -5,7 +5,7 @@
 /dist
 /tmp
 /out-tsc
-
+send-file.txt
 # dependencies
 /node_modules
 
